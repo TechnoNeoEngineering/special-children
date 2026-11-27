@@ -1,0 +1,1108 @@
+<!doctype html>
+<html lang="ta">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f8f5eb">
+<title>தமிழ் வினா விடை வாசிப்பான்</title>
+<style>
+  :root {
+    color-scheme: light;
+    font-family: "Noto Sans Tamil", "Nirmala UI", "Tamil Sangam MN", Latha, system-ui, sans-serif;
+    background: #f8f5eb;
+    color: #233d35;
+    --green: #245842;
+    --muted: #52665c;
+    --line: #d4ded4;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; }
+  main { max-width: 760px; margin: auto; padding: clamp(22px, 5vw, 55px) 18px; }
+  header { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
+  .mark { display: grid; place-items: center; flex: 0 0 58px; height: 58px; border-radius: 18px; background: var(--green); color: white; font-size: 30px; font-weight: 700; }
+  h1 { margin: 0; font-size: clamp(1.25rem, 4.4vw, 2.15rem); line-height: 1.5; }
+  .card { background: #fffefa; border: 1px solid #e5e3d5; border-radius: 26px; padding: clamp(18px, 5vw, 38px); box-shadow: 0 12px 32px #453c2410; }
+  .progress-label { display: block; color: var(--muted); font-size: .92rem; font-weight: 700; }
+  progress { display: block; width: 100%; height: 7px; margin: 11px 0 25px; appearance: none; border: 0; border-radius: 10px; background: #e6ece5; overflow: hidden; }
+  progress::-webkit-progress-bar { background: #e6ece5; }
+  progress::-webkit-progress-value { background: #4c8768; }
+  progress::-moz-progress-bar { background: #4c8768; }
+  h2 { font-size: clamp(1.22rem, 4.5vw, 1.85rem); margin: 0; line-height: 1.65; overflow-wrap: anywhere; }
+  .answer { border-radius: 16px; background: #edf4eb; border-left: 4px solid #78a58b; padding: 15px 17px; margin-top: 20px; }
+  .answer h3 { font-size: .85rem; margin: 0 0 5px; color: #36594a; }
+  .answer p { font-size: 1.16rem; margin: 0; line-height: 1.65; overflow-wrap: anywhere; }
+  .status { min-height: 1.6em; margin: 18px 0 0; color: var(--muted); font-size: .92rem; line-height: 1.65; }
+  .controls { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+  button { font: inherit; font-size: .95rem; font-weight: 700; min-height: 50px; padding: 10px 14px; border: 1px solid var(--line); border-radius: 13px; background: #fffefa; color: var(--green); cursor: pointer; }
+  button:hover:not(:disabled) { background: #eef4ed; }
+  button:focus-visible { outline: 3px solid #92622b; outline-offset: 3px; }
+  button:disabled { color: #52665c; background: #f3f3eb; cursor: default; }
+  .primary { background: var(--green); border-color: var(--green); color: #fff; }
+  .primary:hover:not(:disabled) { background: #194732; }
+  .controls > button { flex: 1 1 auto; }
+  .mic-panel { margin-top: 19px; border: 1px solid #e6dbbf; border-radius: 19px; padding: 16px; background: #f4ecd6; }
+  .mic-panel button[aria-pressed="true"] { border-color: var(--green); background: #e0efde; }
+  .mic-panel p { margin: 9px 0 0; font-size: .88rem; line-height: 1.65; color: #4e5b4f; }
+  .reader-options { margin-top: 18px; }
+  details.reader-options { padding: 14px 16px; border: 1px solid var(--line); border-radius: 15px; }
+  summary { cursor: pointer; font-weight: 700; }
+  .settings-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 12px; margin-top: 14px; }
+  .field { display: grid; gap: 5px; align-content: start; }
+  input[type="number"], input[type="text"] { width: 100%; min-height: 44px; padding: 8px 10px; border: 1px solid var(--line); border-radius: 9px; font: inherit; color: inherit; background: #fffefa; }
+  input[aria-invalid="true"] { border-color: #a13427; }
+  .field-error { color: #922d21; font-size: .84rem; line-height: 1.6; }
+  .jump-row { display: flex; align-items: end; flex-wrap: wrap; gap: 8px; }
+  .jump-row .field { flex: 1 1 155px; }
+  .jump-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+  .practice-option { display: flex; align-items: center; gap: 9px; margin-top: 15px; cursor: pointer; }
+  .practice-option input { width: 19px; height: 19px; }
+  #practice-feedback { color: #245842; font-weight: 700; }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <span class="mark" aria-hidden="true">அ</span>
+    <h1>தமிழ் வினா விடை வாசிப்பான்</h1>
+  </header>
+  <section class="card" aria-label="வாசிப்பான்">
+    <span id="position" class="progress-label">வினா விடை கோப்பு</span>
+    <progress id="progress" max="1" value="0" aria-labelledby="position"></progress>
+    <h2 id="question">கேள்விகள் ஏற்றப்படுகின்றன…</h2>
+    <div id="answer-panel" class="answer" hidden>
+      <h3>பதில்</h3>
+      <p id="answer"></p>
+    </div>
+    <p class="status" role="status" id="reading-status">வினா விடை கோப்பு ஏற்றப்படுகிறது…</p>
+    <div id="file-source" hidden>
+      <label for="question-file">வினா விடை .md கோப்பு</label>
+      <input id="question-file" type="file" accept=".md,text/markdown">
+    </div>
+    <nav class="controls" aria-label="கேள்வி கட்டுப்பாடுகள்">
+      <button id="previous" type="button" disabled>← முன்னால்</button>
+      <button id="start" class="primary" type="button" disabled>ஆரம்பி</button>
+      <button id="replay" type="button" hidden>மீண்டும் கேள்</button>
+      <button id="reveal" type="button" hidden>பதிலைக் கேள்</button>
+      <button id="next" class="primary" type="button" disabled>அடுத்து →</button>
+    </nav>
+    <p class="status" id="practice-feedback" role="status" hidden></p>
+    <form id="jump-form" class="reader-options" novalidate>
+      <div class="jump-row">
+        <div class="field">
+          <label for="jump-number">எந்தக் கேள்விக்குப் போகணும்?</label>
+          <input id="jump-number" type="text" inputmode="numeric" autocomplete="off" maxlength="12" aria-describedby="jump-error" disabled>
+        </div>
+        <button id="jump" type="submit" disabled>அந்தக் கேள்விக்குப் போ</button>
+      </div>
+      <p class="field-error" id="jump-error" role="status" hidden></p>
+      <div class="jump-actions">
+        <button id="jump-tamil" type="button" disabled>எண்ணைத் தமிழில் சொல்</button>
+        <button id="jump-english" type="button" disabled>எண்ணை ஆங்கிலத்தில் சொல்</button>
+      </div>
+    </form>
+    <details class="reader-options">
+      <summary>வாசிப்பு எப்படி இருக்கணும்?</summary>
+      <div class="settings-grid">
+        <label class="field">கேள்வியை எத்தனை தடவை வாசிக்கணும்?
+          <input id="question-count" type="number" min="1" max="20" step="1" value="1" aria-describedby="question-count-error">
+          <span id="question-count-error" class="field-error" role="status" hidden></span>
+        </label>
+        <label class="field">கேள்வியை மறுபடி வாசிக்க எத்தனை வினாடி காத்திருக்கணும்?
+          <input id="repeat-delay" type="number" min="0" max="120" step="any" value="0" aria-describedby="repeat-delay-error">
+          <span id="repeat-delay-error" class="field-error" role="status" hidden></span>
+        </label>
+        <label class="field">பதிலை வாசிக்க எத்தனை வினாடி காத்திருக்கணும்?
+          <input id="answer-delay" type="number" min="0" max="120" step="any" value="0" aria-describedby="answer-delay-error">
+          <span id="answer-delay-error" class="field-error" role="status" hidden></span>
+        </label>
+        <label class="field">பதிலை எத்தனை தடவை வாசிக்கணும்?
+          <input id="answer-count" type="number" min="1" max="20" step="1" value="1" aria-describedby="answer-count-error">
+          <span id="answer-count-error" class="field-error" role="status" hidden></span>
+        </label>
+        <label class="field">பதிலை மறுபடி வாசிக்க எத்தனை வினாடி காத்திருக்கணும்?
+          <input id="answer-repeat-delay" type="number" min="0" max="120" step="any" value="0" aria-describedby="answer-repeat-delay-error">
+          <span id="answer-repeat-delay-error" class="field-error" role="status" hidden></span>
+        </label>
+      </div>
+      <button id="reset-playback" class="reader-options" type="button">வாசிப்பு அமைப்புகளை இயல்புநிலைக்கு மாற்று</button>
+    </details>
+    <label class="practice-option"><input id="practice-mode" type="checkbox"> பதிலை நானே சொல்லிப் பார்க்கிறேன்</label>
+  </section>
+  <section class="mic-panel" aria-label="குரல் கட்டளைகள்">
+    <button id="mic" type="button" disabled aria-pressed="false" aria-describedby="mic-help mic-status">மைக் இயக்கு</button>
+    <p id="mic-help">மைக் கேட்கும்போது “ஆரம்பி”, “அடுத்து” அல்லது “முன்னால்” என்று சொல்லுங்க. பயிற்சியில் “பதிலைச் சொல்லுங்க” என்று தெரிஞ்சதும் பதிலைச் சொல்லுங்க.</p>
+    <p id="mic-status" role="status"></p>
+    <p id="mic-feedback" role="status" hidden></p>
+  </section>
+  <noscript>வாசிப்பானைப் பயன்படுத்த JavaScript தேவை.</noscript>
+</main>
+<script>
+"use strict";
+
+const byId = (id) => document.getElementById(id);
+const sourceFile = "Tamil-Questions-and-Answers-500.md";
+let questions = [];
+const position = byId("position");
+const progress = byId("progress");
+const question = byId("question");
+const answer = byId("answer");
+const answerPanel = byId("answer-panel");
+const readingStatus = byId("reading-status");
+const micStatus = byId("mic-status");
+const micFeedback = byId("mic-feedback");
+const fileSource = byId("file-source");
+const fileInput = byId("question-file");
+const buttons = {
+  start: byId("start"), previous: byId("previous"), next: byId("next"),
+  replay: byId("replay"), mic: byId("mic"), reveal: byId("reveal"),
+  jump: byId("jump"), jumpTamil: byId("jump-tamil"), jumpEnglish: byId("jump-english")
+};
+const jumpInput = byId("jump-number");
+const jumpError = byId("jump-error");
+const practiceInput = byId("practice-mode");
+const practiceFeedback = byId("practice-feedback");
+const cookieName = "tamil-reader-settings";
+const fields = {
+  questionCount: byId("question-count"),
+  repeatDelay: byId("repeat-delay"),
+  answerDelay: byId("answer-delay"),
+  answerCount: byId("answer-count"),
+  answerRepeatDelay: byId("answer-repeat-delay")
+};
+const playbackDefaults = { questionCount: 1, repeatDelay: 0, answerDelay: 0, answerCount: 1, answerRepeatDelay: 0 };
+const legacyPlaybackDefaults = { questionCount: 2, repeatDelay: 2, answerDelay: 2, answerCount: 1 };
+const settings = { ...playbackDefaults, playbackVersion: 2, jump: null, practice: false };
+const rightMessage = "சரியா சொன்னீங்க!";
+const synth = window.speechSynthesis;
+const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+const micSupported = Boolean(Recognition && window.isSecureContext);
+const commands = new Map([
+  ["ஆரம்பி", "start"], ["arambi", "start"], ["aarambi", "start"],
+  ["அடுத்து", "next"], ["atuthu", "next"], ["aduthu", "next"],
+  ["முன்னால்", "previous"], ["முன்னாள்", "previous"], ["முன்னால", "previous"],
+  ["முன்னாடி", "previous"], ["முன்னே", "previous"],
+  ["முந்தையது", "previous"], ["முந்தையகேள்வி", "previous"],
+  ["முன்னால்போ", "previous"], ["முன்னாலே", "previous"],
+  ["munnal", "previous"], ["munnaal", "previous"]
+]);
+const spokenCommands = spokenLookup(commands);
+const micErrors = {
+  "not-allowed": "உலாவியில் மைக் அனுமதி கொடுத்து மீண்டும் முயலுங்கள்.",
+  "service-not-allowed": "இந்த உலாவியில் குரல் அறிதல் சேவையைப் பயன்படுத்த முடியவில்லை.",
+  "audio-capture": "மைக் கிடைக்கவில்லை. இணைப்பைச் சரிபார்த்து மீண்டும் முயலுங்கள்.",
+  "network": "குரல் அறிதல் சேவையுடன் இணைய முடியவில்லை. மீண்டும் முயலுங்கள்.",
+  "language-not-supported": "இந்த மொழியில் சொன்னதை இந்த உலாவியால் புரிஞ்சுக்க முடியலை."
+};
+
+let index = -1;
+let reading = null;
+let recognition = null;
+let micEnabled = false;
+let micEnabledByPractice = false;
+let restartTimer;
+let jumpLanguage = null;
+let awaitingAnswer = false;
+
+function validSetting(input, value) {
+  return typeof value === "number" && Number.isFinite(value)
+    && value >= Number(input.min) && value <= Number(input.max)
+    && (input.step !== "1" || Number.isInteger(value));
+}
+
+function saveSettings() {
+  const value = encodeURIComponent(JSON.stringify(settings));
+  try {
+    document.cookie = `${cookieName}=${value}; Max-Age=31536000; Path=/; SameSite=Lax`
+      + (location.protocol === "https:" ? "; Secure" : "");
+  } catch {
+    // The reader remains usable if cookies are blocked.
+  }
+}
+
+function restoreSettings() {
+  try {
+    const prefix = `${cookieName}=`;
+    const cookie = document.cookie.split(";").map((part) => part.trim())
+      .find((part) => part.startsWith(prefix));
+    if (!cookie) return;
+    const saved = JSON.parse(decodeURIComponent(cookie.slice(prefix.length)));
+    // Older cookies recorded the defaults even when only the jump or practice mode changed.
+    const usedOldDefaults = saved.playbackVersion === undefined
+      && Object.entries(legacyPlaybackDefaults).every(([key, value]) => saved[key] === value);
+    if (!usedOldDefaults) {
+      for (const [key, input] of Object.entries(fields)) {
+        if (!validSetting(input, saved[key])) continue;
+        settings[key] = saved[key];
+        input.value = String(saved[key]);
+      }
+    }
+    if (Number.isSafeInteger(saved.jump) && saved.jump >= 1) settings.jump = saved.jump;
+    settings.practice = saved.practice === true;
+    practiceInput.checked = settings.practice;
+    if (usedOldDefaults) saveSettings();
+  } catch {
+    // Ignore malformed or unavailable cookies.
+  }
+}
+
+function showFieldError(input, output, message) {
+  output.textContent = message;
+  output.hidden = !message;
+  if (message) input.setAttribute("aria-invalid", "true");
+  else input.removeAttribute("aria-invalid");
+}
+
+for (const [key, input] of Object.entries(fields)) {
+  const output = byId(`${input.id}-error`);
+  input.addEventListener("input", () => {
+    const value = input.valueAsNumber;
+    if (!validSetting(input, value)) {
+      const message = input.step === "1"
+        ? `${input.min} முதல் ${input.max} வரை ஒரு முழு எண்ணைப் போடுங்க.`
+        : `${input.min} முதல் ${input.max} வரை வினாடியைப் போடுங்க.`;
+      showFieldError(input, output, message);
+      return;
+    }
+    showFieldError(input, output, "");
+    settings[key] = value;
+    saveSettings();
+  });
+  input.addEventListener("blur", () => {
+    if (validSetting(input, input.valueAsNumber)) return;
+    input.value = String(settings[key]);
+    showFieldError(input, output, "");
+  });
+}
+
+byId("reset-playback").addEventListener("click", () => {
+  for (const [key, input] of Object.entries(fields)) {
+    settings[key] = playbackDefaults[key];
+    input.value = String(settings[key]);
+    showFieldError(input, byId(`${input.id}-error`), "");
+  }
+  saveSettings();
+});
+
+function normalizeDigits(value) {
+  return value.replace(/[௦-௯]/gu, (digit) => String(digit.codePointAt(0) - 0x0BE6));
+}
+
+function typedNumber(value) {
+  const digits = normalizeDigits(value.trim());
+  return /^\d+$/.test(digits) ? Number(digits) : undefined;
+}
+
+function validateJump(number) {
+  const valid = Number.isSafeInteger(number) && number >= 1 && number <= questions.length;
+  showFieldError(jumpInput, jumpError, valid ? "" : `1 முதல் ${questions.length} வரை ஒரு கேள்வி எண்ணைப் போடுங்க.`);
+  return valid;
+}
+
+function jumpTo(number) {
+  if (!questions.length || !validateJump(number)) return;
+  jumpInput.value = String(number);
+  settings.jump = number;
+  saveSettings();
+  readQuestion(number - 1);
+}
+
+jumpInput.addEventListener("input", () => {
+  if (!jumpInput.value.trim()) {
+    showFieldError(jumpInput, jumpError, "");
+    settings.jump = null;
+    saveSettings();
+    return;
+  }
+  const number = typedNumber(jumpInput.value);
+  if (!validateJump(number)) return;
+  settings.jump = number;
+  saveSettings();
+});
+
+byId("jump-form").addEventListener("submit", (event) => {
+  event.preventDefault();
+  jumpTo(typedNumber(jumpInput.value));
+});
+
+practiceInput.addEventListener("change", () => {
+  settings.practice = practiceInput.checked;
+  saveSettings();
+  if (settings.practice) enableMic({ forPractice: true });
+  else if (micEnabledByPractice) disableMic("மைக் நிறுத்தப்பட்டுள்ளது.");
+  if (index >= 0) readQuestion(index);
+});
+
+function updateControls() {
+  const started = index >= 0;
+  buttons.start.hidden = awaitingAnswer;
+  buttons.start.textContent = reading ? "இடைநிறுத்து" : started ? "தொடரவும்" : "ஆரம்பி";
+  buttons.start.disabled = questions.length === 0;
+  buttons.mic.disabled = questions.length === 0 || !micSupported;
+  buttons.replay.hidden = !started;
+  buttons.reveal.hidden = !awaitingAnswer;
+  jumpInput.disabled = questions.length === 0;
+  buttons.jump.disabled = jumpInput.disabled;
+  buttons.jumpTamil.disabled = buttons.jumpEnglish.disabled = jumpInput.disabled || !micSupported || Boolean(reading);
+  buttons.jumpTamil.setAttribute("aria-pressed", String(jumpLanguage === "ta-IN"));
+  buttons.jumpEnglish.setAttribute("aria-pressed", String(jumpLanguage === "en-IN"));
+  buttons.previous.disabled = index <= 0;
+  buttons.next.disabled = !started || index === questions.length - 1;
+  buttons.mic.textContent = micEnabled ? "மைக் நிறுத்து" : "மைக் இயக்கு";
+  buttons.mic.setAttribute("aria-pressed", String(micEnabled));
+}
+
+function dispatch(command) {
+  if (questions.length === 0) return false;
+  if (command === "start" && !reading && !awaitingAnswer) readQuestion(Math.max(index, 0));
+  else if (command === "next" && index >= 0 && index < questions.length - 1) readQuestion(index + 1);
+  else if (command === "previous" && index > 0) readQuestion(index - 1);
+  else if (command === "replay" && index >= 0) readQuestion(index);
+  else return false;
+  return true;
+}
+
+function stopReading() {
+  if (!reading) return;
+  reading.abort();
+  reading = null;
+  synth?.cancel();
+}
+
+function tamilVoice() {
+  const voices = synth?.getVoices() ?? [];
+  return voices.find((voice) => /^ta[-_]in$/i.test(voice.lang))
+    ?? voices.find((voice) => /^ta(?:[-_]|$)/i.test(voice.lang));
+}
+
+function speak(text, voice, signal) {
+  return new Promise((resolve, reject) => {
+    if (signal.aborted) return resolve(false);
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = voice.lang;
+    utterance.voice = voice;
+    utterance.rate = 0.85;
+    let deadline = setTimeout(() => finish(false), 10000);
+
+    function finish(success, error) {
+      clearTimeout(deadline);
+      signal.removeEventListener("abort", cancel);
+      utterance.onstart = utterance.onend = utterance.onerror = null;
+      if (error) reject(new Error(error));
+      else resolve(success);
+    }
+    function cancel() { finish(false); }
+
+    signal.addEventListener("abort", cancel, { once: true });
+    utterance.onstart = () => {
+      clearTimeout(deadline);
+      deadline = setTimeout(() => finish(false), 60000);
+    };
+    utterance.onend = () => finish(true);
+    utterance.onerror = ({ error }) => finish(false, error);
+    synth.speak(utterance);
+  });
+}
+
+function pause(milliseconds, signal) {
+  return new Promise((resolve) => {
+    if (signal.aborted) return resolve();
+    const timer = setTimeout(complete, milliseconds);
+    function complete() {
+      clearTimeout(timer);
+      signal.removeEventListener("abort", complete);
+      resolve();
+    }
+    signal.addEventListener("abort", complete, { once: true });
+  });
+}
+
+function setPracticeFeedback(message) {
+  practiceFeedback.textContent = message;
+  practiceFeedback.hidden = !message;
+}
+
+function beginReading() {
+  stopReading();
+  const wasVoiceJump = Boolean(jumpLanguage);
+  jumpLanguage = null;
+  stopListening();
+  setMicFeedback("");
+  awaitingAnswer = false;
+  reading = new AbortController();
+  updateControls();
+  if (micEnabled) micStatus.textContent = "வாசிப்பு முடிஞ்சதும் மைக் கேட்கும்.";
+  else if (wasVoiceJump) micStatus.textContent = "";
+  return reading.signal;
+}
+
+function finishReading() {
+  reading = null;
+  updateControls();
+  scheduleListening();
+}
+
+function availableTamilVoice() {
+  return window.SpeechSynthesisUtterance ? tamilVoice() : undefined;
+}
+
+function waitForTamilVoice(signal) {
+  return new Promise((resolve) => {
+    const timer = setTimeout(finish, 1500);
+    function finish() {
+      clearTimeout(timer);
+      synth.removeEventListener("voiceschanged", checkVoice);
+      signal.removeEventListener("abort", finish);
+      resolve(availableTamilVoice());
+    }
+    function checkVoice() {
+      if (availableTamilVoice()) finish();
+    }
+    synth.addEventListener("voiceschanged", checkVoice);
+    signal.addEventListener("abort", finish, { once: true });
+  });
+}
+
+const noVoiceMessage = "தமிழ் குரல் கிடைக்கலை. சாதனத்தில் தமிழ் Text-to-Speech குரலைச் சேர்த்துப் பாருங்க.";
+const autoplayMessage = "உலாவி தானாக வாசிக்க அனுமதிக்கலை. வாசிக்க “தொடரவும்” அழுத்துங்க.";
+const speechErrorMessage = "வாசிப்பு பாதியில் நின்னுடுச்சு. “தொடரவும்” அழுத்திப் பாருங்க.";
+const completedMessage = "எல்லாக் கேள்விகளையும் வாசிச்சாச்சு.";
+
+function reportSpeechError(error) {
+  synth?.cancel();
+  readingStatus.textContent = error.message === "not-allowed" ? autoplayMessage : speechErrorMessage;
+}
+
+function showQuestion(target) {
+  index = target;
+  const [number, prompt, response] = questions[index];
+  position.textContent = number === index + 1
+    ? `கேள்வி ${index + 1} / ${questions.length}`
+    : `${index + 1} / ${questions.length} · கோப்பில் கேள்வி ${number}`;
+  progress.value = index + 1;
+  question.textContent = prompt;
+  answer.textContent = response;
+  answerPanel.hidden = true;
+  updateControls();
+}
+
+function waitForPracticeAnswer(notice, { retry = false } = {}) {
+  awaitingAnswer = true;
+  const instruction = micEnabled
+    ? (retry ? "மைக் கேட்கும்போது பதிலை மீண்டும் சொல்லுங்க." : "மைக் கேட்கும்போது பதிலைச் சொல்லுங்க.")
+    : micSupported ? "பதிலைச் சொல்ல “மைக் இயக்கு” அழுத்துங்க."
+    : retry ? "அடுத்த கேள்விக்குப் போக “அடுத்து” அழுத்துங்க."
+    : "பதிலைப் பார்க்க “பதிலைக் கேள்” அழுத்துங்க.";
+  readingStatus.textContent = notice ? `${notice} ${instruction}` : instruction;
+}
+
+async function readQuestion(target, { keepFeedback = false } = {}) {
+  const signal = beginReading();
+  if (!keepFeedback) setPracticeFeedback("");
+
+  try {
+    for (let next = target; next < questions.length && !signal.aborted; next++) {
+      showQuestion(next);
+      const [, prompt, response] = questions[next];
+      const playback = { ...settings };
+      let voice = availableTamilVoice();
+      if (!voice && synth?.addEventListener && window.SpeechSynthesisUtterance) {
+        readingStatus.textContent = "தமிழ் குரல் தேடப்படுகிறது…";
+        voice = await waitForTamilVoice(signal);
+      }
+      if (signal.aborted) return;
+      if (voice) await playQuestions(prompt, voice, playback, signal);
+      if (signal.aborted) return;
+
+      if (playback.practice) {
+        waitForPracticeAnswer(voice ? "" : noVoiceMessage);
+        return;
+      }
+
+      if (!voice) {
+        answerPanel.hidden = false;
+        readingStatus.textContent = noVoiceMessage;
+        return;
+      }
+      await playDelayedAnswer(response, voice, playback, signal);
+    }
+    if (!signal.aborted) readingStatus.textContent = completedMessage;
+  } catch (error) {
+    if (!signal.aborted) reportSpeechError(error);
+  } finally {
+    if (!signal.aborted) finishReading();
+  }
+}
+
+async function playDelayedAnswer(response, voice, playback, signal) {
+  if (playback.answerDelay > 0) {
+    readingStatus.textContent = "பதிலை யோசிச்சுப் பாருங்க.";
+    await pause(playback.answerDelay * 1000, signal);
+  }
+  if (!signal.aborted) await playAnswer(response, voice, playback, signal);
+}
+
+async function playQuestions(prompt, voice, playback, signal) {
+  for (let count = 1; count <= playback.questionCount; count++) {
+    if (signal.aborted) return;
+    readingStatus.textContent = `கேள்வி வாசிக்கப்படுகிறது… (${count}/${playback.questionCount})`;
+    if (!await speak(prompt, voice, signal)) throw new Error("question");
+    if (count < playback.questionCount && playback.repeatDelay > 0) {
+      readingStatus.textContent = "கேள்வியை மறுபடி வாசிக்கும்…";
+      await pause(playback.repeatDelay * 1000, signal);
+    }
+  }
+}
+
+async function playAnswer(response, voice, playback, signal) {
+  const repetitions = playback.answerCount;
+  answerPanel.hidden = false;
+  for (let count = 1; count <= repetitions; count++) {
+    if (signal.aborted) return;
+    readingStatus.textContent = `பதில் வாசிக்கப்படுகிறது… (${count}/${repetitions})`;
+    if (!await speak(`பதில். ${response}`, voice, signal)) throw new Error("answer");
+    if (count < repetitions && playback.answerRepeatDelay > 0) {
+      readingStatus.textContent = "பதிலை மறுபடி வாசிக்கும்…";
+      await pause(playback.answerRepeatDelay * 1000, signal);
+    }
+  }
+}
+
+async function finishPracticeAnswer(correct) {
+  if (!awaitingAnswer) return;
+  const signal = beginReading();
+  const voice = availableTamilVoice();
+  const response = questions[index][2];
+  const playback = { ...settings };
+  let notice = voice ? "" : noVoiceMessage;
+  setPracticeFeedback(correct ? rightMessage : "");
+
+  try {
+    if (correct) {
+      readingStatus.textContent = "பதில் சரி.";
+      if (voice && !await speak(rightMessage, voice, signal)) throw new Error("feedback");
+    }
+    if (!signal.aborted && voice) await playDelayedAnswer(response, voice, playback, signal);
+  } catch {
+    if (!signal.aborted) {
+      synth?.cancel();
+      notice = "பதிலை வாசிக்க முடியலை. “பதிலைக் கேள்” அழுத்தி மீண்டும் முயலுங்க.";
+    }
+  }
+  if (signal.aborted) return;
+
+  answerPanel.hidden = false;
+  if (correct && index < questions.length - 1) {
+    readQuestion(index + 1, { keepFeedback: true });
+    return;
+  }
+  if (correct) {
+    readingStatus.textContent = "கடைசிக் கேள்விக்கும் பதில் சொல்லிட்டீங்க!";
+  } else {
+    waitForPracticeAnswer(notice, { retry: true });
+  }
+  finishReading();
+}
+
+function stopListening() {
+  clearTimeout(restartTimer);
+  if (recognition?.accepting) {
+    recognition.accepting = false;
+    recognition.engine.abort();
+  }
+}
+
+function setMicFeedback(message) {
+  micFeedback.textContent = message;
+  micFeedback.hidden = !message;
+}
+
+function foldTamilSounds(text) {
+  return text.replace(/[லழள]/gu, "ல").replace(/[நணன]/gu, "ன").replace(/[ரற]/gu, "ர");
+}
+
+function spokenLookup(entries) {
+  const folded = new Map();
+  for (const [word, value] of entries) {
+    const key = foldTamilSounds(word);
+    // Leave ambiguous sound forms unresolved.
+    folded.set(key, !folded.has(key) || folded.get(key) === value ? value : undefined);
+  }
+  return folded;
+}
+
+function commandFor(transcript) {
+  // Speech recognition may insert punctuation, spaces, or invisible separators.
+  const normalized = transcript.normalize("NFC").toLowerCase()
+    .replace(/[\p{P}\p{S}\p{Cf}\s]/gu, "");
+  return commands.get(normalized) ?? spokenCommands.get(foldTamilSounds(normalized));
+}
+
+const englishUnits = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine",
+  "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen"];
+const englishTens = ["twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"];
+const tamilUnits = [
+  ["சுழியம்", "பூஜ்ஜியம்", "பூஜ்யம்"], ["ஒன்று", "ஒண்ணு"], ["இரண்டு", "ரெண்டு"], ["மூன்று", "மூணு"],
+  ["நான்கு", "நாலு"], ["ஐந்து", "அஞ்சு"], ["ஆறு"], ["ஏழு"], ["எட்டு"], ["ஒன்பது", "ஒம்பது"]
+];
+const tamilTeens = [
+  ["பத்து"], ["பதினொன்று", "பதினோரு"], ["பன்னிரண்டு", "பதினிரண்டு"], ["பதின்மூன்று", "பதிமூன்று", "பதிமூணு"],
+  ["பதினான்கு", "பதினாலு"], ["பதினைந்து", "பதினஞ்சு"], ["பதினாறு"], ["பதினேழு"], ["பதினெட்டு"], ["பத்தொன்பது", "பதினொன்பது"]
+];
+const tamilTens = ["இருபது", "முப்பது", "நாற்பது", "ஐம்பது", "அறுபது", "எழுபது", "எண்பது", "தொண்ணூறு"];
+const tamilHundreds = [
+  ["நூறு", "ஒருநூறு"], ["இருநூறு", "இரண்டுநூறு"], ["முந்நூறு", "முன்னூறு", "மூன்றுநூறு"],
+  ["நானூறு", "நாநூறு", "நான்குநூறு"], ["ஐந்நூறு", "ஐநூறு", "அய்நூறு", "ஐந்துநூறு"],
+  ["அறுநூறு", "ஆறுநூறு"], ["எழுநூறு", "ஏழுநூறு"], ["எண்ணூறு", "எட்டுநூறு"], ["தொள்ளாயிரம்", "ஒன்பதுநூறு"]
+];
+const vowelSigns = new Map([
+  ["அ", ""], ["ஆ", "ா"], ["இ", "ி"], ["ஈ", "ீ"], ["உ", "ு"], ["ஊ", "ூ"],
+  ["எ", "ெ"], ["ஏ", "ே"], ["ஐ", "ை"], ["ஒ", "ொ"], ["ஓ", "ோ"], ["ஔ", "ௌ"]
+]);
+
+function joinTamilNumber(prefix, suffix) {
+  const first = suffix[0];
+  const forms = [prefix + suffix, prefix.slice(0, -1) + "ி" + suffix];
+  if (vowelSigns.has(first)) forms.push(prefix.slice(0, -1) + vowelSigns.get(first) + suffix.slice(1));
+  if ("கசடதபற".includes(first)) forms.push(prefix + first + "்" + suffix);
+  return forms;
+}
+
+function buildTamilNumbers() {
+  const small = [...tamilUnits, ...tamilTeens];
+  tamilTens.forEach((word, i) => {
+    small[(i + 2) * 10] = [word];
+    const prefix = word.endsWith("று") ? "தொண்ணூற்று" : word.slice(0, -2) + "த்து";
+    for (let unit = 1; unit <= 9; unit++) {
+      small[(i + 2) * 10 + unit] = tamilUnits[unit].flatMap((suffix) => joinTamilNumber(prefix, suffix));
+    }
+  });
+
+  const values = new Map();
+  small.forEach((forms, n) => forms.forEach((form) => values.set(form, n)));
+  tamilHundreds.forEach((forms, i) => {
+    const base = (i + 1) * 100;
+    for (const form of forms) {
+      values.set(form, base);
+      const prefix = form.endsWith("று") ? form.slice(0, -2) + "ற்று" : "தொள்ளாயிரத்து";
+      for (let n = 1; n < 100; n++) {
+        for (const suffix of small[n]) {
+          for (const joined of joinTamilNumber(prefix, suffix)) values.set(joined, base + n);
+        }
+      }
+    }
+  });
+  return values;
+}
+
+const tamilNumbers = buildTamilNumbers();
+const spokenTamilNumbers = spokenLookup(tamilNumbers);
+
+function tamilNumberBelowThousand(word) {
+  return tamilNumbers.get(word) ?? spokenTamilNumbers.get(foldTamilSounds(word));
+}
+const thousandForms = [
+  ["ஆயிரம்", "ஓராயிரம்", "ஒருஆயிரம்"], ["இரண்டாயிரம்", "இரண்டுஆயிரம்"],
+  ["மூவாயிரம்", "மூன்றாயிரம்", "மூன்றுஆயிரம்"], ["நாலாயிரம்", "நான்குஆயிரம்"],
+  ["ஐயாயிரம்", "ஐந்தாயிரம்", "ஐந்துஆயிரம்"], ["ஆறாயிரம்", "ஆறுஆயிரம்"],
+  ["ஏழாயிரம்", "ஏழுஆயிரம்"], ["எட்டாயிரம்", "எட்டுஆயிரம்"],
+  ["ஒன்பதாயிரம்", "ஒன்பதுஆயிரம்"]
+];
+
+function tamilNumber(words) {
+  const compact = words.replaceAll(" ", "");
+  const smallNumber = tamilNumberBelowThousand(compact);
+  if (smallNumber !== undefined) return smallNumber;
+  for (const [i, forms] of thousandForms.entries()) {
+    for (const form of forms) {
+      const base = (i + 1) * 1000;
+      if (compact === form) return base;
+      const prefix = form.slice(0, -2) + "த்து";
+      if (!compact.startsWith(prefix.slice(0, -1))) continue;
+      let suffix = compact.slice(prefix.length);
+      const sign = compact[prefix.length - 1];
+      if (sign !== "ு") {
+        const vowel = [...vowelSigns].find(([, value]) => value === sign)?.[0];
+        if (!vowel) continue;
+        suffix = vowel + suffix;
+      }
+      const rest = tamilNumberBelowThousand(suffix) ?? tamilNumberBelowThousand(suffix.replace(/^[கசடதபற]்/u, ""));
+      if (rest > 0) return base + rest;
+    }
+  }
+}
+
+function englishNumber(words) {
+  if (!words) return;
+  const scale = words.match(/^(a|.+?) (thousand)(?: (?:and )?(.+))?$/)
+    ?? words.match(/^(a|.+?) (hundred)(?: (?:and )?(.+))?$/);
+  if (scale) {
+    const base = scale[2] === "hundred" ? 100 : 1000;
+    const multiplier = scale[1] === "a" ? 1 : englishNumber(scale[1]);
+    const remainder = scale[3] ? englishNumber(scale[3]) : 0;
+    const maxMultiplier = base === 100 ? 9 : 999;
+    if (multiplier > 0 && multiplier <= maxMultiplier && remainder >= 0 && remainder < base) {
+      return multiplier * base + remainder;
+    }
+    return;
+  }
+
+  const unit = englishUnits.indexOf(words);
+  if (unit >= 0) return unit;
+  const [tens, ones, extra] = words.split(" ");
+  const tensIndex = englishTens.indexOf(tens);
+  const onesIndex = ones ? englishUnits.indexOf(ones) : 0;
+  if (tensIndex >= 0 && !extra && onesIndex >= 0 && onesIndex <= 9) return (tensIndex + 2) * 10 + onesIndex;
+}
+
+function spokenNumber(transcript) {
+  const text = normalizeDigits(transcript.normalize("NFC").toLowerCase())
+    .replace(/[\p{Cf}]/gu, "").trim();
+  const numeric = text.replace(/[.!?]+$/u, "");
+  if (/^(?:\d+|\d{1,3}(?:,\d{3})+)$/u.test(numeric)) return Number(numeric.replaceAll(",", ""));
+  const words = text.replace(/[.?!]+$/u, "").replace(/-/gu, " ").replace(/\s+/gu, " ");
+  return englishNumber(words) ?? tamilNumber(words);
+}
+
+function answerKey(text, { relaxed = false } = {}) {
+  const normalized = normalizeDigits(text.normalize("NFC")).toLowerCase()
+    // Keep numeric parts separate when a date or a list uses different separators.
+    .replace(/(?<=\p{N})[\s.,]+(?=\p{N})/gu, ".")
+    .replace(/(?<!\p{N})[.,]|[.,](?!\p{N})/gu, " ")
+    .replace(/([க-ஹ])்\s+([அஆஇஈஉஊஎஏஐஒஓஔ])/gu,
+      (_, consonant, vowel) => consonant + vowelSigns.get(vowel))
+    .replace(/\p{Cf}/gu, "");
+  const withOptionalEnding = relaxed
+    ? normalized.replace(/([க-ஹ])ா(?=$|[^\p{L}\p{M}\p{N}])/gu, "$1")
+    : normalized;
+  const compact = foldTamilSounds(withOptionalEnding.replace(/[\s!?"'“”‘’()]/gu, ""));
+  if (!relaxed) return compact;
+
+  // Fold doubled consonants before dropping pulli, including across word boundaries.
+  return compact.replace(/([க-ஹ])(?:்\1)+/gu, "$1").replace(/([க-ஹ])்/gu, "$1");
+}
+
+function practiceAnswerNumber(text) {
+  const trimmed = text.replace(/^[\s.,]+|[\s.,]+$/gu, "");
+  const grouped = trimmed.replace(/(?<=\p{N})\s*,\s*(?=\p{N})/gu, ",");
+  return spokenNumber(grouped) ?? spokenNumber(trimmed.replace(/[.,]+/gu, " "));
+}
+
+function spokenAnswer(transcript) {
+  return transcript.normalize("NFC").trim()
+    .replace(/^(?:என்\s+)?பதில்(?:\s*[:：.,]+\s*|\s+)(?:வந்து(?:\s*[.,]+\s*|\s+))?/u, "")
+    .replace(/\s+தான்[.,!?]*$/u, "");
+}
+
+function isCorrectAnswer(transcript, expected) {
+  const variants = [transcript, spokenAnswer(transcript)];
+
+  // Whole-number answers must agree with the spoken value.
+  const expectedNumber = practiceAnswerNumber(expected);
+  if (expectedNumber !== undefined) {
+    return variants.some((variant) => practiceAnswerNumber(variant) === expectedNumber);
+  }
+
+  const expectedKey = answerKey(expected);
+  const relaxedExpectedKey = answerKey(expected, { relaxed: true });
+  return variants.some((variant) => {
+    const actualKey = answerKey(variant);
+    return actualKey && practiceAnswerNumber(variant) === undefined
+      && (actualKey === expectedKey
+        || answerKey(variant, { relaxed: true }) === relaxedExpectedKey);
+  });
+}
+
+function enableMic({ forPractice = false } = {}) {
+  if (micEnabled || !micSupported) return;
+  micEnabled = true;
+  micEnabledByPractice = forPractice;
+  updateControls();
+  micStatus.textContent = reading ? "வாசிப்பு முடிந்ததும் மைக் கேட்கும்." : "மைக் தொடங்குகிறது…";
+}
+
+function disableMic(message) {
+  setMicFeedback("");
+  micEnabled = false;
+  micEnabledByPractice = false;
+  jumpLanguage = null;
+  stopListening();
+  updateControls();
+  micStatus.textContent = message;
+}
+
+function canListen() {
+  return (micEnabled || jumpLanguage) && !reading && !recognition && !document.hidden;
+}
+
+function scheduleListening() {
+  clearTimeout(restartTimer);
+  if (canListen()) restartTimer = setTimeout(startListening, 350);
+}
+
+function requestVoiceJump(language) {
+  if (reading || !micSupported || !questions.length) return;
+  jumpLanguage = language;
+  stopListening();
+  setMicFeedback("");
+  showFieldError(jumpInput, jumpError, "");
+  micStatus.textContent = "மைக் தொடங்குது…";
+  updateControls();
+  startListening();
+}
+
+function handleNavigation(alternatives) {
+  for (const { transcript } of alternatives) {
+    const command = commandFor(transcript);
+    if (!command) continue;
+
+    setMicFeedback("");
+    if (!dispatch(command)) {
+      const message = index < 0 ? "முதலில் “ஆரம்பி” என்று சொல்லுங்க."
+        : command === "previous" ? "இது முதல் கேள்வி."
+        : command === "next" ? "இது கடைசிக் கேள்வி."
+        : "வாசிப்பு ஏற்கெனவே ஆரம்பிச்சுடுச்சு.";
+      setMicFeedback(message);
+    }
+    return true;
+  }
+  return false;
+}
+
+function handleVoiceJump(alternatives, heard) {
+  for (const { transcript } of alternatives) {
+    const number = spokenNumber(transcript);
+    if (number === undefined) continue;
+    setMicFeedback("");
+    jumpTo(number);
+    return;
+  }
+  showFieldError(jumpInput, jumpError, "ஒரு கேள்வி எண்ணை மட்டும் சொல்லுங்க.");
+  showUnclearSpeech(heard);
+}
+
+function showUnclearSpeech(heard = "") {
+  setMicFeedback(heard
+    ? `“${heard}”ன்னு கேட்டது. புரியலை, மறுபடி சொல்லுங்க.`
+    : "என்ன சொன்னீங்கன்னு புரியலை. மறுபடி சொல்லுங்க.");
+}
+
+function handleSpeech(session, alternatives) {
+  const heard = alternatives[0]?.transcript.trim() ?? "";
+  if (!heard) {
+    showUnclearSpeech();
+    return;
+  }
+  if (session.language) {
+    handleVoiceJump(alternatives, heard);
+    return;
+  }
+  if (awaitingAnswer && isCorrectAnswer(heard, questions[index][2])) {
+    finishPracticeAnswer(true);
+    return;
+  }
+  if (handleNavigation(awaitingAnswer ? alternatives.slice(0, 1) : alternatives)) return;
+  if (awaitingAnswer) {
+    const expected = questions[index][2];
+    // Clear navigation commands take priority over other guesses from the recognizer.
+    // If it heard a specific different number, keep that answer for number exercises.
+    if (practiceAnswerNumber(spokenAnswer(heard)) === undefined
+        && alternatives.slice(1).some(({ transcript }) => isCorrectAnswer(transcript, expected))) {
+      finishPracticeAnswer(true);
+      return;
+    }
+    setPracticeFeedback("");
+    setMicFeedback(`“${heard}”ன்னு கேட்டது. கோப்பில் உள்ள பதிலோட இது பொருந்தலை. மறுபடி சொல்லிப் பாருங்க.`);
+    return;
+  }
+  showUnclearSpeech(heard);
+}
+
+function startListening() {
+  if (!canListen()) return;
+
+  const engine = new Recognition();
+  const session = { engine, accepting: true, language: jumpLanguage };
+  recognition = session;
+  engine.lang = session.language ?? "ta-IN";
+  engine.interimResults = false;
+  engine.continuous = false;
+  engine.maxAlternatives = 5;
+
+  engine.onstart = () => {
+    if (!session.accepting) return;
+    micStatus.textContent = session.language ? "மைக் கேட்கிறது. கேள்வி எண்ணைச் சொல்லுங்க."
+      : awaitingAnswer ? "மைக் கேட்கிறது. பதிலைச் சொல்லுங்க."
+      : index < 0 ? "மைக் கேட்கிறது. “ஆரம்பி” என்று சொல்லுங்க."
+      : "மைக் கேட்கிறது. “அடுத்து” அல்லது “முன்னால்” என்று சொல்லுங்க.";
+  };
+
+  engine.onresult = (event) => {
+    if (!session.accepting || reading) return;
+    for (let i = event.resultIndex; i < event.results.length; i++) {
+      const result = event.results[i];
+      if (!result.isFinal) continue;
+      handleSpeech(session, Array.from(result));
+      return;
+    }
+  };
+
+  engine.onsoundstart = () => { session.heardSound = true; };
+
+  engine.onnomatch = () => {
+    if (session.accepting) showUnclearSpeech();
+  };
+
+  engine.onerror = ({ error }) => {
+    if (!session.accepting || error === "aborted") return;
+    if (error === "no-speech") {
+      if (session.language || session.heardSound) showUnclearSpeech();
+      return;
+    }
+    disableMic(micErrors[error] ?? "மைக் தொடங்கலை. மறுபடி முயற்சி பண்ணுங்க.");
+  };
+
+  engine.onend = () => {
+    if (recognition !== session) return;
+    recognition = null;
+    if (session.accepting && session.language) {
+      jumpLanguage = null;
+      updateControls();
+      micStatus.textContent = "";
+    }
+    scheduleListening();
+  };
+
+  try {
+    engine.start();
+  } catch {
+    recognition = null;
+    disableMic("மைக் தொடங்கலை. மறுபடி முயற்சி பண்ணுங்க.");
+  }
+}
+
+for (const command of ["previous", "next", "replay"]) {
+  buttons[command].addEventListener("click", () => dispatch(command));
+}
+buttons.start.addEventListener("click", () => {
+  if (!reading) {
+    dispatch("start");
+    return;
+  }
+  stopReading();
+  readingStatus.textContent = "வாசிப்பு இடைநிறுத்தப்பட்டுள்ளது.";
+  finishReading();
+});
+buttons.reveal.addEventListener("click", () => finishPracticeAnswer(false));
+buttons.jumpTamil.addEventListener("click", () => requestVoiceJump("ta-IN"));
+buttons.jumpEnglish.addEventListener("click", () => requestVoiceJump("en-IN"));
+buttons.mic.addEventListener("click", () => {
+  if (micEnabled) {
+    disableMic("மைக் நிறுத்தப்பட்டுள்ளது.");
+    return;
+  }
+  enableMic();
+  startListening();
+});
+
+document.addEventListener("visibilitychange", () => {
+  if (document.hidden) stopListening();
+  else scheduleListening();
+});
+window.addEventListener("pagehide", () => {
+  disableMic("மைக் நிறுத்தப்பட்டுள்ளது.");
+  stopReading();
+});
+
+function markdownCells(line) {
+  return line.trim()
+    .replace(/^\||(?<!\\)\|$/gu, "")
+    .split(/(?<!\\)\|/u)
+    .map((cell) => cell.trim().replace(/\\\|/gu, "|"));
+}
+
+function plainCell(cell) {
+  return cell.replace(/^(\*\*|__)(.+)\1$/u, "$2").trim();
+}
+
+function parseQuestions(markdown) {
+  const lines = markdown.trim().split(/\r?\n/u);
+  const divider = lines.findIndex((line, i) => {
+    if (i === 0) return false;
+    const columns = markdownCells(line);
+    return columns.length === 3 && columns.every((cell) => /^:?-{3,}:?$/u.test(cell))
+      && markdownCells(lines[i - 1]).length === 3;
+  });
+  if (divider < 0) throw new Error("வினா விடை அட்டவணை கிடைக்கலை.");
+
+  const rows = [];
+  const seen = new Set();
+  for (let i = divider + 1; i < lines.length; i++) {
+    const line = lines[i].trim();
+    if (!line || !line.includes("|")) break;
+    const cells = markdownCells(line);
+    const [label, question = "", answer = ""] = cells.map(plainCell);
+    const number = typedNumber(label);
+    if (cells.length !== 3 || !Number.isSafeInteger(number) || number < 1
+        || seen.has(number) || !question || !answer) {
+      throw new Error(`அட்டவணையில் ${i + 1}ஆம் வரியைச் சரிபாருங்க.`);
+    }
+    seen.add(number);
+    rows.push([number, question, answer]);
+  }
+  if (!rows.length) throw new Error("அட்டவணையில் கேள்வி பதில் எதுவும் கிடைக்கலை.");
+  return rows;
+}
+
+function loadQuestions(markdown) {
+  questions = parseQuestions(markdown);
+  progress.max = questions.length;
+  position.textContent = `${questions.length} கேள்விகள்`;
+  fileSource.hidden = true;
+  jumpInput.value = settings.jump === null ? "" : String(settings.jump);
+  if (jumpInput.value && !validateJump(settings.jump)) {
+    jumpInput.value = "";
+    showFieldError(jumpInput, jumpError, "");
+  }
+  readQuestion(0);
+}
+
+fileInput.addEventListener("change", async () => {
+  const file = fileInput.files[0];
+  if (!file) return;
+  fileInput.disabled = true;
+  try {
+    loadQuestions(await file.text());
+  } catch {
+    readingStatus.textContent = "கோப்பைப் படிக்க முடியலை. எண், கேள்வி, பதில் ஆகிய மூன்று பத்திகளும் உள்ள .md கோப்பைத் தேர்ந்தெடுங்க.";
+    fileInput.value = "";
+  } finally {
+    fileInput.disabled = false;
+  }
+});
+
+async function initializeReader() {
+  restoreSettings();
+  updateControls();
+  if (!micSupported) {
+    micStatus.textContent = "இந்த உலாவிச் சூழலில் மைக் வசதி கிடைக்கவில்லை. பொத்தான்களைப் பயன்படுத்தலாம்.";
+  }
+  if (location.protocol === "https:" || location.protocol === "http:") {
+    try {
+      const response = await fetch(`./${sourceFile}`, { cache: "no-store" });
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      loadQuestions(await response.text());
+      return;
+    } catch {
+      readingStatus.textContent = "வினா விடை .md கோப்பைத் தானாகத் திறக்க முடியலை. கீழே கோப்பைத் தேர்ந்தெடுங்க.";
+    }
+  } else {
+    readingStatus.textContent = "தொடங்க வினா விடை .md கோப்பைத் தேர்ந்தெடுங்க.";
+  }
+  fileSource.hidden = false;
+}
+
+initializeReader();
+</script>
+</body>
+</html>
